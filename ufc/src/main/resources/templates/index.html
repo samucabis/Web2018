@@ -55,7 +55,30 @@ $(document).ready(function() {
 <li class="nav-item active">
 <a class="nav-link" href="/index">Index <span class="sr-only">(current)</span></a>
 </li>
-<li class="nav-item"><a class="nav-link" href="html-components.html"> Documentation </a></li>
+			<div class="widget-header dropdown">
+				<a href="#" class="ml-3 icontext" data-toggle="dropdown" data-offset="20,10">
+					<div class="icon-wrap icon-xs bg2 round text-secondary"><i class="fa fa-user"></i></div>
+					<div class="text-wrap" style="color:white">
+						<small>Olá</small>
+						<span >Login <i class="fa fa-caret-down"></i></span>
+					</div>
+				</a>
+				<div class="dropdown-menu dropdown-menu-right">
+					<form class="px-4 py-3" method="POST">
+						<div class="form-group">
+						  <label>Usuario</label>
+						  <input type="text" class="form-control" placeholder="usuario">
+						</div>
+						<div class="form-group">
+						  <label>Senha</label>
+						  <input type="password" class="form-control" placeholder="Senha">
+						</div>
+						<button type="submit" class="btn btn-primary">Entrar</button>
+						</form>
+						<hr class="dropdown-divider">
+						<a class="dropdown-item" href="#">Cadastrar</a>
+				</div> <!--  dropdown-menu .// -->
+			</div> <!-- widget  dropdown.// -->
 <li class="nav-item">
 <a class="btn ml-2 btn-warning" href="produto/listar">Produtos</a></li>
     </ul>

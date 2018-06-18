@@ -15,7 +15,7 @@
         <div class="col-sm-3" th:each="produto : ${todasOsProdutos}">
         	<article class="col-item">
         		<div class="photo">
-        			<a href="#"> <img src="https://unsplash.it/500/300?image=0" class="img-responsive" alt="Product Image" /> </a>
+        			<a href="#"> <img th:src="@{'/images/'+${produto.nome}+.png}" class="img-responsive" alt="Product Image" /> </a>
         		</div>
         		<div class="info">
         			<div class="row">
@@ -28,7 +28,7 @@
         			</div>
         			<div class="separator clear-left">
         				<p class="btn-add">
-        					<i class="fa fa-shopping-cart"></i><a href="#" class="hidden-sm">Carrinho</a>
+        					<i class="fa fa-shopping-cart"></i><a th:href="@{/produto/addcart/{id}(id = ${produto.id})}" class="hidden-sm">Carrinho</a>
         				</p>
         				<p class="btn-details">
         					<a href="#" class="hidden-sm" data-toggle="tooltip" data-placement="top" title="Add to wish list"><i class="fa fa-heart"></i></a>
