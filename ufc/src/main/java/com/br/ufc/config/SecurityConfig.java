@@ -27,14 +27,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		.antMatchers("/index").permitAll() // Permito todo mundo acessar /inicio
 		.antMatchers("/produto/formulario").hasRole("ADMIN") //Somente pessoa com papel "USER" acessa /pessoa/formulario
-		.antMatchers("/produto/salvar").hasAnyRole("ADMIN") // Pessoa com papel "USER" ou "ADMIN" acessa /pessoa/salvar
+		.antMatchers("/produto/show").hasRole("ADMIN")
+		.antMatchers("/produto/salvar").hasRole("ADMIN") // Pessoa com papel "USER" ou "ADMIN" acessa /pessoa/salvar
 		.antMatchers("/produto/listar").permitAll() // /pessoa/listar todo mundo pode acessar
+		.antMatchers("/produto/cart").permitAll()
 		
 		.anyRequest().authenticated() // o resto precisa está autenticado
 		
 		.and()
 		.formLogin()
-		.loginPage("/produto/logar") // Esse é o controller que chama nosso formulario
+		.loginPage("/login") // Esse é o controller que chama nosso formulario
 		.permitAll() //permitir acesso para essa url "entrar"
 		
 		//.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
@@ -46,7 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-		auth.userDetailsService(userDetailsImplementacao).passwordEncoder(new BCryptPasswordEncoder());
+		auth.userDetailsService(userDetailsImplementacao)
+		.passwordEncoder(new BCryptPasswordEncoder());
 	}
 
 	@Override

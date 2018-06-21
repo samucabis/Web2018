@@ -11,12 +11,12 @@
 					<div class="panel-title">
 						<div class="row">
 							<div class="col-xs-6">
-								<h5><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
+								<h5><span class="glyphicon glyphicon-shopping-cart"></span> Carrinho</h5>
 							</div>
 							<div class="col-xs-6">
-								<button type="button" class="btn btn-primary btn-sm btn-block">
-									<span class="glyphicon glyphicon-share-alt"></span> Continue shopping
-								</button>
+								<a href="/" class="btn btn-primary btn-sm btn-block">
+									<span class="glyphicon glyphicon-share-alt"></span> Continuar Comprando
+								</a>
 							</div>
 						</div>
 					</div>
@@ -36,9 +36,9 @@
 								<input type="text" class="form-control input-sm" value="1">
 							</div>
 							<div class="col-xs-2">
-								<button type="button" class="btn btn-link btn-xs">
-									<span class="glyphicon glyphicon-trash"> </span>
-								</button>
+								<a  class="btn btn-link btn-xs" th:href="@{/produto/cartexcluir/{id}(id = ${produto.id})}">
+									<span class="glyphicon glyphicon-trash" > </span>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -49,9 +49,9 @@
 							<h4 class="text-right">Total <strong th:text="${valorTotal}"></strong></h4>
 						</div>
 						<div class="col-xs-3">
-							<button type="button" class="btn btn-success btn-block">
+							<a href="/salvarcart"type="button" class="btn btn-success btn-block">
 								Checkout
-							</button>
+							</a>
 						</div>
 					</div>
 				</div>

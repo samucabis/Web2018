@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.br.ufc.model.Pessoa;
 import com.br.ufc.repository.PessoaRepository;
@@ -24,11 +25,11 @@ public class UserDetailsServiceImplementacao implements UserDetailsService{
 		Pessoa pessoa = pessoaRepository.findByLogin(login);
 		
 		if(pessoa == null) {
+			
 			throw new UsernameNotFoundException("Deu merda");
 		}
 		
-		
-		return new User(pessoa.getUsername(),pessoa.getPassword(),true,true,true,true,pessoa.getAuthorities());
+		return new User(pessoa.getUsername(), pessoa.getPassword(),true,true,true,true, pessoa.getAuthorities());
 	}
 
 }

@@ -14,6 +14,7 @@ public class Cart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	private Long id_cliente;
 	@OneToMany
 	private List<Produto> produtos;
 	private double valor;
@@ -34,6 +35,14 @@ public class Cart {
 
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
+	}
+
+	public Long getId_cliente() {
+		return id_cliente;
+	}
+
+	public void setId_cliente(Long id_cliente) {
+		this.id_cliente = id_cliente;
 	}
 
 }

@@ -41,8 +41,13 @@ public class Pessoa implements UserDetails{
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}	
+	public List<Role> getRoles() {
+		return roles;
 	}
-	
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
 	public String getLogin() {
 		return login;
 	}
