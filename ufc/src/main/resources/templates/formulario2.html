@@ -1,0 +1,62 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<form class="form-horizontal" method="POST" enctype="multipart/form-data" action="/produto/salvarCliente" th:object="${pessoa}">
+
+<input type="hidden" th:field="*{id}">
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="pessoa_login">Login</label>  
+  <div class="col-md-4">
+  <input id="product_model" name="login" placeholder="Login" class="form-control input-md" required type="text">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="senha">Senha</label>  
+  <div class="col-md-4">
+  <input id="senha" name="senha" placeholder="Senha" class="form-control input-md" required type="password">
+    
+  </div>
+</div>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="pessoa_nome">Nome</label>  
+  <div class="col-md-4">
+  <input id="pessoa_nome" name="nome" placeholder="nome" class="form-control input-md" required type="text">
+    
+  </div>
+</div>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="pessoa_cpf">Cpf</label>  
+  <div class="col-md-4">
+  <input id="pessoa_cpf" name="cpf" placeholder="Somente numeros" class="form-control input-md" required type="text">
+    
+  </div>
+</div>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="pessoa_data">Data nascimento</label>  
+  <div class="col-md-4">
+  <input id="pessoa_data" name="data" class="form-control input-md" required type="date">
+    
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="singlebutton">Salvar</label>
+  <div class="col-md-4">
+    <input id="singlebutton"  class="btn btn-primary" type="submit" value="Salvar">
+    
+  </div>
+  </div>
+</form>
+<a href="/" class="btn btn-success"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Voltar</a>
+
