@@ -129,6 +129,15 @@ public class ProdutoController {
 		return mv;
 	}
 	
+	@RequestMapping("/produtoShow/{id}")
+	public ModelAndView showProduto(@PathVariable Long id) {
+		Produto produto = produtoService.buscarPorId(id);
+		ModelAndView mv = new ModelAndView("produto-desc");
+		mv.addObject("produto", produto);
+		return mv;
+	}
+	
+	
 	@RequestMapping("/cart")
 	public ModelAndView listarCarrinho() {
 		List<Produto> produtos = produtoService.retornarTodasOsProdutos();
