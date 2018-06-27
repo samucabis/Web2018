@@ -2,6 +2,7 @@ package com.br.ufc.model;
 
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -25,6 +26,9 @@ public class Pessoa implements UserDetails{
 	private Long id;
 	private String login;
 	private String senha;
+	private String nome;
+	private Date data;
+	private String cpf;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable( 
@@ -34,7 +38,6 @@ public class Pessoa implements UserDetails{
 	        inverseJoinColumns = @JoinColumn(
 	          name = "role_id", referencedColumnName = "papel")) 
 	private List<Role> roles;
-	
 
 	public Long getId() {
 		return id;
@@ -44,6 +47,24 @@ public class Pessoa implements UserDetails{
 	}	
 	public List<Role> getRoles() {
 		return roles;
+	}	
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public Date getData() {
+		return data;
+	}
+	public void setData(Date data) {
+		this.data = data;
+	}
+	public String getCpf() {
+		return cpf;
+	}
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;

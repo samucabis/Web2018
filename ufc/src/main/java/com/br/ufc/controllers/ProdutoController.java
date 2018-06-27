@@ -1,6 +1,7 @@
 package com.br.ufc.controllers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -23,8 +26,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.br.ufc.model.Cart;
 import com.br.ufc.model.Pessoa;
 import com.br.ufc.model.Produto;
+import com.br.ufc.model.Role;
 import com.br.ufc.repository.PessoaRepository;
 import com.br.ufc.service.CartService;
+import com.br.ufc.service.PessoaService;
 import com.br.ufc.service.ProdutoService;
 
 @Controller
@@ -37,6 +42,9 @@ public class ProdutoController {
 	private ProdutoService produtoService;
 	private PessoaRepository pessoaRepository;
 	private CartService carrinho;
+	private Cart cart;
+	@Autowired
+	private PessoaService pessoaService;
 	
 	@GetMapping("/listar")
 	public ModelAndView listarProdutos() {
@@ -47,6 +55,16 @@ public class ProdutoController {
 		
 		return mv;
 	}
+	
+	@GetMapping("/carrinho")
+	public ModelAndView carProdutos() {
+		
+		ModelAndView mv = new ModelAndView("cart");
+		mv.addObject("listaTemporaria", produtos);
+		mv.addObject("valorTotal", valor);
+		return mv;
+		
+	}
 
 	
 	@RequestMapping("/formulario")
@@ -55,6 +73,15 @@ public class ProdutoController {
 		mv.addObject("produto", new Produto());
 		return mv;
 	}
+	
+	@RequestMapping("/formulario2")
+	public ModelAndView formularioCliente() {
+		ModelAndView mv = new ModelAndView("formulario2");
+		mv.addObject("pessoa", new Pessoa());
+		return mv;
+	}
+	
+	
 	
 	@PostMapping("/salvar")
 	public ModelAndView salvarProduto(Produto produto , @RequestParam(value= "imagem") MultipartFile imagem) {
@@ -65,11 +92,21 @@ public class ProdutoController {
 		return mv;
 	}
 	
+	@PostMapping("/salvarCliente")
+	public ModelAndView salvarPessoa(Pessoa pessoa) {
+		pessoa.setRoles(new ArrayList<Role>());
+		pessoaService.adicionarPessoa(pessoa);		
+		ModelAndView mv = new ModelAndView("redirect:/");
+		
+		return mv;
+	}
+	
+	
+	
 	@PostMapping("/salvarcart")
 	public ModelAndView salvarCarrrinho() {
 		Pessoa pessoa = pessoaRepository.findByLogin(SecurityContextHolder.getContext()
                 .getAuthentication().getName());
-		Cart cart = null;
 		cart.setId_cliente(pessoa.getId());
 		cart.setProdutos(produtos);
 		cart.setValor(valor);
@@ -86,7 +123,7 @@ public class ProdutoController {
 		//List<Pessoa> pessoas = new ArrayList<Pessoa>();
 		produtos.add(produto);
 		valor = produto.getValor() + valor;
-		ModelAndView mv = new ModelAndView("cart");
+		ModelAndView mv = new ModelAndView("redirect:/produto/carrinho");
 		mv.addObject("listaTemporaria", produtos);
 		mv.addObject("valorTotal", valor);
 		return mv;
@@ -105,8 +142,17 @@ public class ProdutoController {
 	@RequestMapping("/cartexcluir/{id}")
 	public ModelAndView excluirProduto(@PathVariable Long id) {
 		Produto produto = produtoService.buscarPorId(id);
+		
+		for(Produto p : produtos) {
+			if(p.getId() == produto.getId()) {
+				valor = valor - p.getValor();
+				produtos.remove(p);
+				break;
+			}
+		}
+		
 		produtos.remove(produto);
-		ModelAndView mv = new ModelAndView("redirect:/produto/cart");
+		ModelAndView mv = new ModelAndView("redirect:/produto/carrinho");
 		return mv;
 	}
 	
@@ -130,7 +176,7 @@ public class ProdutoController {
 	
 	@RequestMapping("/logar")
 	public ModelAndView logar() {
-		ModelAndView mv = new ModelAndView("/login");
+		ModelAndView mv = new ModelAndView("redirect:/");
 		return mv;
 	}
 	@RequestMapping("/logout")
@@ -142,7 +188,7 @@ public class ProdutoController {
 	    
 	    produtos.clear();
 	    
-	    return "redirect:/produto/logar?logout";
+	    return "redirect:/";
 	
 	}	
 	

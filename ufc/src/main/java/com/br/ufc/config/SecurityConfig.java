@@ -23,6 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
+		http.authorizeRequests().antMatchers("/","/produto/formulario2" ,"/index.xhtml").permitAll().anyRequest().authenticated();
 		http.csrf().disable().authorizeRequests()
 		
 		.antMatchers("/index").permitAll() // Permito todo mundo acessar /inicio
